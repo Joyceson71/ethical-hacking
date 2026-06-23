@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6-Month Daily Cybersecurity Roadmap</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #050a0f;
+  --surface: #0a1520;
+  --border: #0f2a40;
+  --cyan: #00d4ff;
+  --green: #00ff9f;
+  --orange: #ff6b2b;
+  --purple: #b06aff;
+  --red: #ff3b5c;
+  --text: #c8dde8;
+  --muted: #4a6a7a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,212,255,0.015) 2px,
+    rgba(0,212,255,0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 30px 0;
+}
+
+.header-eyebrow {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+.header h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(0,212,255,0.3);
+  margin-bottom: 10px;
+}
+
+.header h1 span { color: var(--cyan); }
+
+.header-dates {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.header-stats {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-mini {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.stat-mini strong {
+  color: var(--cyan);
+  font-weight: 400;
+}
+
+/* PHASE SECTIONS */
+.phase-section {
+  margin-bottom: 50px;
+}
+
+.phase-header-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  padding: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  position: relative;
+}
+
+.phase-header-main::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+}
+
+.phase-section.p1 .phase-header-main::before { background: var(--green); }
+.phase-section.p2 .phase-header-main::before { background: var(--cyan); }
+.phase-section.p3 .phase-header-main::before { background: var(--orange); }
+.phase-section.p4 .phase-header-main::before { background: var(--purple); }
+.phase-section.p5 .phase-header-main::before { background: var(--red); }
+.phase-section.p6 .phase-header-main::before { background: #ffd700; }
+
+.phase-header-main:hover { background: rgba(0,212,255,0.05); }
+
+.phase-num {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  min-width: 70px;
+}
+
+.phase-title-info { flex: 1; }
+
+.phase-dates {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.p1 .phase-dates { color: var(--green); }
+.p2 .phase-dates { color: var(--cyan); }
+.p3 .phase-dates { color: var(--orange); }
+.p4 .phase-dates { color: var(--purple); }
+.p5 .phase-dates { color: var(--red); }
+.p6 .phase-dates { color: #ffd700; }
+
+.phase-title-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.phase-toggle {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  color: var(--muted);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+
+.phase-section.open .phase-toggle {
+  transform: rotate(45deg);
+  color: var(--cyan);
+}
+
+.phase-body {
+  display: none;
+  border: 1px solid var(--border);
+  border-top: none;
+  background: var(--surface);
+  padding: 24px;
+}
+
+.phase-section.open .phase-body { display: block; }
+
+.phase-overview {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.phase-overview-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.phase-overview-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.phase-overview-text strong { color: #fff; font-weight: 500; }
+
+/* DAILY SCHEDULE */
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.day-card {
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, rgba(10,21,32,0.8), rgba(15,42,64,0.5));
+  padding: 16px;
+  font-size: 12px;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0,212,255,0.2);
+}
+
+.day-name {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--cyan);
+}
+
+.day-date {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.day-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.task:last-child { border-bottom: none; }
+
+.task-time {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.task-item {
+  font-size: 12px;
+  color: var(--text);
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.task-item::before {
+  content: '▪';
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
+.weekend-card {
+  border: 2px solid rgba(255,215,0,0.3);
+  background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,215,0,0.03));
+}
+
+.weekend-card .day-name {
+  color: #ffd700;
+}
+
+.weekend-card .day-header {
+  border-bottom: 1px solid rgba(255,215,0,0.2);
+}
+
+/* MILESTONE */
+.phase-milestone {
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px dashed rgba(0,212,255,0.3);
+  background: rgba(0,212,255,0.03);
+  font-size: 12px;
+  color: var(--cyan);
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.phase-milestone-title {
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.phase-milestone-items {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* NOTES */
+.footer-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.footer-block {
+  padding: 0;
+}
+
+.footer-block h4 {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.footer-block ul {
+  list-style: none;
+}
+
+.footer-block li {
+  font-size: 12px;
+  color: var(--text);
+  padding: 6px 0;
+  line-height: 1.5;
+  display: flex;
+  gap: 8px;
+}
+
+.footer-block li::before {
+  content: '→';
+  color: var(--cyan);
+  flex-shrink: 0;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 40px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.copyright strong { color: var(--cyan); }
+
+@media (max-width: 768px) {
+  .week-grid {
+    grid-template-columns: 1fr;
+  }
+  .header h1 {
+    font-size: 32px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+<div class="header">
+  <div class="header-eyebrow">// Day-by-Day Cybersecurity Roadmap</div>
+  <h1>CYBER<span>SEC</span> DAILY TRACK</h1>
+  <div class="header-dates">Jun 23, 2026 → Dec 31, 2026 · 192 Days · 27 Weeks</div>
+  <div class="header-stats">
+    <div class="stat-mini"><strong>Phase 1:</strong> 31 days (Foundations)</div>
+    <div class="stat-mini"><strong>Phase 2:</strong> 32 days (Core Security + Sec+)</div>
+    <div class="stat-mini"><strong>Phase 3:</strong> 31 days (Offensive)</div>
+  </div>
+  <div class="header-stats">
+    <div class="stat-mini"><strong>Phase 4:</strong> 31 days (Projects)</div>
+    <div class="stat-mini"><strong>Phase 5:</strong> 31 days (CTFs + Resume)</div>
+    <div class="stat-mini"><strong>Phase 6:</strong> 36 days (Interview Crunch)</div>
+  </div>
+</div>
+
+<!-- PHASE 1 -->
+<div class="phase-section p1 open" onclick="toggle(this)">
+  <div class="phase-header-main">
+    <div class="phase-num">PHASE 01</div>
+    <div class="phase-title-info">
+      <div class="phase-dates">JUN 23 → JUL 23 · 31 DAYS</div>
+      <div class="phase-title-text">Foundations & Networking</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+    <div class="phase-overview">
+      <div class="phase-overview-title">Phase Goal</div>
+      <div class="phase-overview-text">
+        <strong>Master networking fundamentals, Linux CLI, and cryptography basics.</strong> Your ECE background gives you a head start here. Build a home lab with VirtualBox. The goal: understand TCP/IP at a deep level, be comfortable in Bash, and know how the internet actually works. Daily commitment: <strong>2+ hours</strong>.
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Week 1: Jun 23–Jun 29</div>
+      <div class="week-grid">
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Mon</div>
+            <div class="day-date">Jun 23</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1h)</div>
+              <div class="task-item">Install Kali Linux + VirtualBox setup guide</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (1h)</div>
+              <div class="task-item">Watch: "How Networking Works" overview video (Udacity free)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Read: OSI Model layers (clear explanation site)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Tue</div>
+            <div class="day-date">Jun 24</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1.5h)</div>
+              <div class="task-item">TryHackMe: Pre-Security → "Networking Basics" module</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (30min)</div>
+              <div class="task-item">Linux Terminal: Practice basic commands (ls, cd, cat, grep, chmod)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Journal: Write 3 things you learned about networking</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Wed</div>
+            <div class="day-date">Jun 25</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1h)</div>
+              <div class="task-item">Professor Messer: Network+ → TCP/IP Model (video 1-2)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (1h)</div>
+              <div class="task-item">Linux: Learn user permissions (chmod, chown, sudo) in VM</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Read: What is DNS? (howhttps.works)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Thu</div>
+            <div class="day-date">Jun 26</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1h)</div>
+              <div class="task-item">TryHackMe: "How the Web Works" module</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (1h)</div>
+              <div class="task-item">Hands-on: Use nslookup/dig commands (DNS queries in Linux)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Watch: TCP Handshake explained (3Blue1Brown or Computerphile)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Fri</div>
+            <div class="day-date">Jun 27</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1h)</div>
+              <div class="task-item">TryHackMe: "HTTP in Detail" module</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (1h)</div>
+              <div class="task-item">Linux: Bash scripting basics (loops, conditionals, variables)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Review: Summarize TCP/IP, DNS, HTTP concepts</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card weekend-card">
+          <div class="day-header">
+            <div class="day-name">Sat</div>
+            <div class="day-date">Jun 28</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1.5h)</div>
+              <div class="task-item">Hands-on Lab: Set up 2nd Linux VM, configure network bridge</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (1.5h)</div>
+              <div class="task-item">Practice: Ping, traceroute, ifconfig between VMs</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card weekend-card">
+          <div class="day-header">
+            <div class="day-name">Sun</div>
+            <div class="day-date">Jun 29</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Review (1h)</div>
+              <div class="task-item">Quiz yourself: TCP handshake (draw it from memory)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Plan (30min)</div>
+              <div class="task-item">List 3 topics from Week 1 you want to revisit next week</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Week 2: Jun 30–Jul 6</div>
+      <div class="week-grid">
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Mon</div>
+            <div class="day-date">Jun 30</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1h)</div>
+              <div class="task-item">TryHackMe: "Intro to Cybersecurity" module</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (1h)</div>
+              <div class="task-item">Professor Messer: Networking → Routing & IP (videos)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Read: Subnetting basics (why CIDR matters)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Tue</div>
+            <div class="day-date">Jul 1</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1.5h)</div>
+              <div class="task-item">TryHackMe: "Windows Fundamentals" Part 1</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (30min)</div>
+              <div class="task-item">Linux: User & Group management (useradd, passwd, sudo)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Read: Active Directory basics (what it is, why corps use it)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Wed</div>
+            <div class="day-date">Jul 2</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1h)</div>
+              <div class="task-item">TryHackMe: "Pre-Security" → "Cryptography" module</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (1h)</div>
+              <div class="task-item">Deep dive: Symmetric vs Asymmetric encryption (Khan Academy / Professor Messer)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Practice: Hash passwords (md5, sha256 in Linux)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Thu</div>
+            <div class="day-date">Jul 3</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1.5h)</div>
+              <div class="task-item">TryHackMe: "Pre-Security" path → Complete 60% total</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (30min)</div>
+              <div class="task-item">Firewall basics: What it does, packet filtering concepts</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Linux: Firewall basics (iptables, UFW intro)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card">
+          <div class="day-header">
+            <div class="day-name">Fri</div>
+            <div class="day-date">Jul 4</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (1h)</div>
+              <div class="task-item">Professor Messer: Network+ → Ports, Protocols, Services</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (1h)</div>
+              <div class="task-item">Hands-on: netstat, ss commands (see listening ports, connections)</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Evening (30min)</div>
+              <div class="task-item">Read: Common ports (HTTP 80, HTTPS 443, SSH 22, DNS 53)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card weekend-card">
+          <div class="day-header">
+            <div class="day-name">Sat</div>
+            <div class="day-date">Jul 5</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Morning (2h)</div>
+              <div class="task-item">Project: Build a simple bash script that pings multiple hosts & reports results</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Afternoon (1h)</div>
+              <div class="task-item">Document: How your script works (README + comments)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card weekend-card">
+          <div class="day-header">
+            <div class="day-name">Sun</div>
+            <div class="day-date">Jul 6</div>
+          </div>
+          <div class="day-tasks">
+            <div class="task">
+              <div class="task-time">Review (1h)</div>
+              <div class="task-item">Self-test: Explain TCP/IP stack, DNS resolution, cryptography</div>
+            </div>
+            <div class="task">
+              <div class="task-time">Rest (30min)</div>
+              <div class="task-item">Plan Week 3 — focus areas based on what felt weak</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Week 3–4: Jul 7–Jul 23</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Week 3 Focus:</strong> Continue TryHackMe Pre-Security (target 80% done). Watch all Professor Messer Network+ videos for Core topics (1-20). Set up Ubuntu Linux as your daily driver — use it for 2-3 hours each day. Linux command practice: grep, sed, awk, find, ps. Practice subnetting exercises online (subnetting.net). Create 3 bash scripts: port scanner, file backup script, system info reporter.
+      </p>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7;">
+        <strong>Week 4 Focus:</strong> Complete TryHackMe Pre-Security path 100%. Finish Professor Messer Network+ core topics. Home lab checkpoint: can you ping & SSH between 2 VMs? Practice: explain TCP/IP model, OSI model, DNS query process, ARP resolution from memory. Build confidence test: take 1 mock networking quiz online. Weekend: Build a network monitoring script (shows bandwidth usage, active connections).
+      </p>
+    </div>
+
+    <div class="phase-milestone">
+      <div class="phase-milestone-title">✓ PHASE 1 MILESTONE (By Jul 23)</div>
+      <div class="phase-milestone-items">
+        □ TryHackMe Pre-Security path 100% complete<br>
+        □ Comfortable in Linux CLI (daily usage without thinking)<br>
+        □ Can explain TCP handshake, DNS query, SSL/TLS by heart<br>
+        □ Home lab: 2 VMs, networked, SSH working<br>
+        □ 5 bash scripts created and documented on GitHub<br>
+        □ Subnetting practice: solve 20 problems correctly
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="phase-section p2" onclick="toggle(this)">
+  <div class="phase-header-main">
+    <div class="phase-num">PHASE 02</div>
+    <div class="phase-title-info">
+      <div class="phase-dates">JUL 24 → AUG 24 · 32 DAYS</div>
+      <div class="phase-title-text">Core Security + CompTIA Security+ Prep</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+    <div class="phase-overview">
+      <div class="phase-overview-title">Phase Goal</div>
+      <div class="phase-overview-text">
+        <strong>Master defensive security concepts and pass CompTIA Security+ (SY0-701).</strong> This cert is your gateway to interviews. Cover: threat landscape, vulnerabilities, IAM, SIEM, incident response, compliance. Daily: <strong>2.5+ hours</strong> (course videos, flashcards, practice exams).
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 1–2: Jul 24–Aug 6 (Foundations)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Daily Pattern:</strong><br>
+        • <strong>Morning (1h):</strong> Jason Dion's Security+ course (watch 1-2 lectures per day, Chapter 1-3)<br>
+        • <strong>Afternoon (1h):</strong> TryHackMe "Jr SOC Analyst" path<br>
+        • <strong>Evening (30min):</strong> Flash cards (ExamCompass free Security+ flashcards)<br>
+        • <strong>Weekends (2h):</strong> Practice exams (take 1 full 60-question practice exam)
+      </p>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 3–4: Aug 7–Aug 24 (Deep Dive + Exam Prep)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Daily Pattern:</strong><br>
+        • <strong>Morning (1.5h):</strong> Jason Dion course (finish remaining chapters + review weak areas)<br>
+        • <strong>Afternoon (1h):</strong> Professor Messer Security+ PDF notes + free videos for review<br>
+        • <strong>Evening (45min):</strong> Daily 30 practice questions (Dion's test bank) — track score<br>
+        • <strong>Weekends (3h):</strong> 2 full practice exams (target: 80%+)
+      </p>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7;">
+        <strong>Critical Topics Focus:</strong> CIA Triad, threat actors, malware types, vulnerability management, authentication/authorization, risk management, incident response, compliance (GDPR, HIPAA, PCI-DSS), cloud security basics, cryptography applications.
+      </p>
+    </div>
+
+    <div class="phase-milestone">
+      <div class="phase-milestone-title">✓ PHASE 2 MILESTONE (By Aug 24)</div>
+      <div class="phase-milestone-items">
+        □ Jason Dion's Security+ course 100% watched<br>
+        □ CompTIA Security+ practice tests averaging 80%+<br>
+        □ TryHackMe Jr SOC path 70%+ complete<br>
+        □ FlashCard deck: 500+ Security+ terms memorized<br>
+        □ Schedule & take ACTUAL Security+ exam (end of August)<br>
+        □ 2 real practice exams taken (both 80%+)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase-section p3" onclick="toggle(this)">
+  <div class="phase-header-main">
+    <div class="phase-num">PHASE 03</div>
+    <div class="phase-title-info">
+      <div class="phase-dates">AUG 25 → SEP 24 · 31 DAYS</div>
+      <div class="phase-title-text">Offensive Security & Ethical Hacking</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+    <div class="phase-overview">
+      <div class="phase-overview-title">Phase Goal</div>
+      <div class="phase-overview-text">
+        <strong>Learn to think and act like an attacker.</strong> Focus on Web App Security (OWASP Top 10) using your dev background as leverage. Start with PortSwigger Web Academy (100% free), master Burp Suite, then move to network pentesting basics. Daily: <strong>2.5+ hours</strong> (labs, hands-on practice, research).
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 1–2: Aug 25–Sep 7 (Web App Basics)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Daily Pattern:</strong><br>
+        • <strong>Morning (1.5h):</strong> PortSwigger Web Academy labs (SQL Injection, XSS, CSRF)<br>
+        • <strong>Afternoon (1h):</strong> Burp Suite practice (intercept traffic, modify requests, use Repeater)<br>
+        • <strong>Evening (30min):</strong> Read OWASP Top 10 explanations (one vulnerability per day)<br>
+        • <strong>Weekends (2h):</strong> Solve 1 HackTheBox "Easy" web challenge
+      </p>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7;">
+        <strong>Target Labs to Complete:</strong> PortSwigger SQL Injection (all 15 labs), XSS (all 23 labs), CSRF (all 8 labs), Authentication (all 11 labs). Use your Node.js/Express knowledge to understand how apps process data — spot where injection happens.
+      </p>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 3–4: Sep 8–Sep 24 (Network + eJPT Prep)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Daily Pattern:</strong><br>
+        • <strong>Morning (1h):</strong> INE eJPT v2 free starter path (Network, Attack, Assessment modules)<br>
+        • <strong>Afternoon (1h):</strong> Nmap + Metasploit basics (hands-on in lab network)<br>
+        • <strong>Evening (45min):</strong> Continue PortSwigger labs (IDOR, SSRF, API security)<br>
+        • <strong>Weekends (3h):</strong> 2 HackTheBox Easy machines + write writeups
+      </p>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7;">
+        <strong>Network Penetration Focus:</strong> Nmap scanning (TCP, UDP, timing options), service enumeration (Shodan, Metasploit), Wireshark packet analysis, Hydra password spraying, basic privilege escalation (Linux kernel exploits, Windows UAC bypass concepts).
+      </p>
+    </div>
+
+    <div class="phase-milestone">
+      <div class="phase-milestone-title">✓ PHASE 3 MILESTONE (By Sep 24)</div>
+      <div class="phase-milestone-items">
+        □ All OWASP Top 10 labs on PortSwigger DONE (57 labs total)<br>
+        □ Burp Suite Pro/Community: can intercept, fuzz, exploit like 2nd nature<br>
+        □ 5 HackTheBox Easy machines solved with writeups (on GitHub)<br>
+        □ INE eJPT v2 modules 70%+ complete<br>
+        □ Earned eJPT v2 certification (optional, but strong signal)<br>
+        □ Can write a basic SQL injection exploit from scratch
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="phase-section p4" onclick="toggle(this)">
+  <div class="phase-header-main">
+    <div class="phase-num">PHASE 04</div>
+    <div class="phase-title-info">
+      <div class="phase-dates">SEP 25 → OCT 25 · 31 DAYS</div>
+      <div class="phase-title-text">Specialize & Build Projects</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+    <div class="phase-overview">
+      <div class="phase-overview-title">Phase Goal</div>
+      <div class="phase-overview-text">
+        <strong>Pick your lane (AppSec/Bug Bounty recommended for you) and build 3-4 real, portfolio-worthy projects.</strong> These are what separates HR-passers from technical-interview-clearers. Your full-stack skills are your unfair advantage here. Daily: <strong>3 hours</strong> (1.5h learning, 1.5h building).
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Specialization Choice (By Sep 25)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Recommended for you: AppSec / Bug Bounty.</strong> Why? You code. You understand how Node.js/Express handles input, queries, authentication. Most pentesting candidates can't read source code — you can. This is a superpower in interviews.<br><br>
+        <strong>Alternative paths:</strong> SOC Analyst (most openings), Cloud Security (AWS focus), Malware Analysis (harder, impressive).
+      </p>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 1–2: Sep 25–Oct 8 (Project 1–2)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Project 1: Vulnerable Web App + Writeup</strong><br>
+        • Fork DVWA (Damn Vulnerable Web App) or build your own intentionally vulnerable Express app<br>
+        • Document 5 vulnerabilities you've built in (SQLi, XSS, CSRF, weak auth, IDOR)<br>
+        • Write detailed explanation: why each vuln exists, how it's exploited, how to fix it<br>
+        • Post on GitHub with writeup (this is your portfolio piece)<br>
+        • Time: 3 days of work
+      </p>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7;">
+        <strong>Project 2: Python Network Scanner</strong><br>
+        • Build a port scanner that does: TCP connect scan, service detection (banners), OS fingerprinting<br>
+        • Add: export results to JSON, colored CLI output, multi-threading<br>
+        • Code structure: clean, commented, no copy-paste from Nmap<br>
+        • Document: how port scanning works, why timing matters<br>
+        • Time: 5 days of work
+      </p>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 3–4: Oct 9–Oct 25 (Project 3–4 + Bug Bounty Start)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Project 3: Log Monitoring Dashboard</strong><br>
+        • Python backend that watches syslog/auth.log for suspicious patterns<br>
+        • Flags: repeated failed logins, port scans, permission changes, unusual IPs<br>
+        • Simple web frontend (React or even Flask template) to view alerts<br>
+        • Deploy on a Raspberry Pi or AWS (bonus: cloud deployment experience)<br>
+        • Time: 4 days of work
+      </p>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Project 4: Bug Bounty Submission</strong><br>
+        • Set up HackerOne / Bugcrowd accounts<br>
+        • Find 1 real vulnerability (even if it's just information disclosure)<br>
+        • Write clear, structured report: vulnerability type, impact, reproduction steps, fix<br>
+        • Submit (not expecting payout, but credibility matters)<br>
+        • Time: ongoing, but target 1 submission by Oct 25
+      </p>
+    </div>
+
+    <div class="phase-milestone">
+      <div class="phase-milestone-title">✓ PHASE 4 MILESTONE (By Oct 25)</div>
+      <div class="phase-milestone-items">
+        □ 3 major projects on GitHub (vulnerable app, scanner, monitoring dashboard)<br>
+        □ Each project: clean code, detailed README, working demo<br>
+        □ Specialization decision locked in (AppSec/Bug Bounty preferred)<br>
+        □ 1 bug bounty submission (even if low severity)<br>
+        □ GitHub profile polished: bio says "Cybersecurity Engineer", projects pinned<br>
+        □ Portfolio README: lists all 3 projects with descriptions
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="phase-section p5" onclick="toggle(this)">
+  <div class="phase-header-main">
+    <div class="phase-num">PHASE 05</div>
+    <div class="phase-title-info">
+      <div class="phase-dates">OCT 26 → NOV 25 · 31 DAYS</div>
+      <div class="phase-title-text">CTF Competitions, Writeups & Resume</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+    <div class="phase-overview">
+      <div class="phase-overview-title">Phase Goal</div>
+      <div class="phase-overview-text">
+        <strong>Prove your skills in real competitions. Write public writeups. Convert everything into placement-ready resume & LinkedIn.</strong> Recruiters love CTF competition participation. Daily: <strong>2.5 hours</strong> (1.5h CTF/practice, 1h writing/career prep).
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 1–2: Oct 26–Nov 8 (CTF + Advanced Practice)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Daily Pattern:</strong><br>
+        • <strong>Morning (1h):</strong> CTFtime.org — participate in 1 live CTF event (weekends) or practice on HackTheBox<br>
+        • <strong>Afternoon (45min):</strong> Continue HackTheBox (target Pro Hacker rank or higher)<br>
+        • <strong>Evening (45min):</strong> Write CTF writeups (Medium or GitHub)<br>
+        • <strong>Post-work (30min):</strong> Resume & LinkedIn updates
+      </p>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7;">
+        <strong>CTF Strategy:</strong> Focus on challenges YOU can solve (don't waste time on bleeding-edge crypto). Aim for: web, pwn (basic), forensics, reverse engineering (Ghidra basics). Document your approach in writeups (screenshots, code, explanations).
+      </p>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 3–4: Nov 9–Nov 25 (Job Hunt Begins)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Career Prep (Takes Priority):</strong><br>
+        • <strong>Resume (Days 1-2):</strong> 1-page resume. Lead with: CompTIA Security+ (✓), eJPT (✓), Projects, GitHub. Use ATS-friendly format. Keywords: SOC, pentesting, AppSec, vulnerability assessment, incident response.<br>
+        • <strong>LinkedIn (Days 3-5):</strong> Optimize profile. Headline: "Cybersecurity Engineer | Security+ | Bug Bounty Researcher". About: 200 words about your journey, specialization, goal. Pin top 4 projects.<br>
+        • <strong>Cold Outreach (Days 6-15):</strong> Email 20 cybersecurity startups in India. Subject: "Cybersecurity Fresher — Security+ Certified, 3 Open-Source Projects". Keep it short (5 lines), add GitHub link, ask for informational chat.<br>
+        • <strong>Apply to Jobs (Daily):</strong> 5+ applications per day. Target: Infosys Cyber, Wipro DICE, HCL, SecureLayer7, Appsecco, Sequretek, Accenture Cyber.
+      </p>
+    </div>
+
+    <div class="phase-milestone">
+      <div class="phase-milestone-title">✓ PHASE 5 MILESTONE (By Nov 25)</div>
+      <div class="phase-milestone-items">
+        □ 1 live CTF competed in (even if you don't win, just participating counts)<br>
+        □ 5+ CTF writeups published (Medium or GitHub)<br>
+        □ HackTheBox: Hacker rank or Pro Hacker rank achieved<br>
+        □ Resume: polished, 1-page, ATS-friendly, GitHublink prominent<br>
+        □ LinkedIn: optimized profile, 500+ characters in About, pinned projects<br>
+        □ 20+ cold emails sent + 20+ job applications submitted<br>
+        □ 3-5 recruiter responses / screening calls booked
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 6 -->
+<div class="phase-section p6" onclick="toggle(this)">
+  <div class="phase-header-main">
+    <div class="phase-num">PHASE 06</div>
+    <div class="phase-title-info">
+      <div class="phase-dates">NOV 26 → DEC 31 · 36 DAYS</div>
+      <div class="phase-title-text">Interview Crunch & Placement Push</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+    <div class="phase-overview">
+      <div class="phase-overview-title">Phase Goal</div>
+      <div class="phase-overview-text">
+        <strong>Full-time interview prep mode. Master behavioral questions, security concepts, tool demos, scenario-based thinking.</strong> Your goal: 3+ interview calls, 1 offer or final round by Dec 31. Daily: <strong>3+ hours</strong> (mock interviews, concept review, applications).
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 1–2: Nov 26–Dec 9 (Interview Prep Structure)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Daily Pattern:</strong><br>
+        • <strong>Morning (1.5h):</strong> Mock interview prep (use Interviewing.io or peer interviews)<br>
+        • <strong>Afternoon (1h):</strong> Technical deep-dive (one Security+ concept per day, explain in 5 minutes)<br>
+        • <strong>Evening (1h):</strong> Tool demo practice (Burp Suite, Nmap, Metasploit — be fast, confident)<br>
+        • <strong>Before bed (30min):</strong> Apply to 5-10 more jobs
+      </p>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7;">
+        <strong>Create Interview Document with Q&As:</strong> CIA Triad → explain each part, why it matters. Threat modeling → walk through an example. Incident response → "You find a breach, what do you do?" Answer in steps. OWASP Top 10 → name all 10, explain the top 3 deep.
+      </p>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div style="font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 16px;">Weeks 3–5: Dec 10–Dec 31 (Active Interview Season)</div>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>During This Period:</strong><br>
+        • You'll likely have 2-5 interview calls<br>
+        • <strong>HR Round (30min):</strong> Tell your story, why cybersec, your projects. Be genuine. (Your story: "Started with web dev, realized security is more interesting, built 3 projects, got certs, love bug bounty.")<br>
+        • <strong>Technical Round (60min):</strong> Deep-dive on concepts. Tool demo. Coding (may ask to fix a vulnerable Python snippet). Scenario question: "You find an RCE in a web app, what's your report?"<br>
+        • <strong>Senior Technical (45min, if you reach it):</strong> Architecture questions. Red team thinking. Why did you choose this approach? How would you scale this tool?
+      </p>
+      <p style="font-size: 13px; color: var(--text); line-height: 1.7; margin-bottom: 16px;">
+        <strong>Continue Applying:</strong> Even while interviewing, apply to 5-10 more jobs per day. Cast a wide net. You only need 1 offer.
+      </p>
+    </div>
+
+    <div class="phase-milestone">
+      <div class="phase-milestone-title">✓ PHASE 6 GOAL (By Dec 31)</div>
+      <div class="phase-milestone-items">
+        □ 3+ interview calls (at least 1 from a known cybersecurity company)<br>
+        □ 1 internship offer OR final round scheduled for Jan<br>
+        □ 50+ job applications submitted (cumulative)<br>
+        □ 5+ mock interviews done (internal or external)<br>
+        □ Confident explaining all Security+ topics in <5 min each<br>
+        □ Can do a Burp Suite demo + tool explanation in 10 minutes<br>
+        □ Have 1 backup offer or strong lead if primary falls through
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER SECTION -->
+<div class="footer-section">
+  <div class="footer-title">Daily Discipline Checkpoints</div>
+  <div class="footer-content">
+    <div class="footer-block">
+      <h4>Weekday Pattern (Mon–Fri)</h4>
+      <ul>
+        <li>Morning (7-8am): 1.5–2h focused learning (videos, labs, reading)</li>
+        <li>Afternoon (2-4pm): 1.5h hands-on practice (labs, coding, tool use)</li>
+        <li>Evening (7-8pm): 30min–1h review, flashcards, or writing</li>
+        <li>Total per day: 2–2.5 hours (Phase 1–3), 3 hours (Phase 4–6)</li>
+      </ul>
+    </div>
+    <div class="footer-block">
+      <h4>Weekend Pattern (Sat–Sun)</h4>
+      <ul>
+        <li>Saturday: 3–4h deep work (big projects, complex challenges, capture-the-flags)</li>
+        <li>Sunday: 1–2h review + planning for next week</li>
+        <li>Both days: Optional (1h late evening) — catch up on missed days</li>
+      </ul>
+    </div>
+    <div class="footer-block">
+      <h4>Monthly Milestones (Track These)</h4>
+      <ul>
+        <li>End of each month: Take a practice exam or attempt a real CTF challenge</li>
+        <li>End of each phase: Showcase a completed project or published writeup</li>
+        <li>Review: Did you hit the phase goal? If not, what blocked you?</li>
+        <li>Adjust: Next month's focus based on weak areas</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="footer-section">
+  <div class="footer-title">Resources & Links (Save These)</div>
+  <div class="footer-content">
+    <div class="footer-block">
+      <h4>Free Platforms (Use These)</h4>
+      <ul>
+        <li>TryHackMe — learn interactively (pre-security, jr soc, web academy paths)</li>
+        <li>HackTheBox — solve real machines (ctf-style challenges)</li>
+        <li>PortSwigger Academy — 100% free web app security labs (57 labs)</li>
+        <li>Professor Messer — free Network+ & Security+ videos (YouTube)</li>
+        <li>CTFtime.org — find & join live CTF competitions</li>
+      </ul>
+    </div>
+    <div class="footer-block">
+      <h4>Paid (Worth It)</h4>
+      <ul>
+        <li>Jason Dion's Security+ Course (Udemy, ~₹500 on sale)</li>
+        <li>CompTIA Security+ Exam (₹15,000–18,000)</li>
+        <li>eJPT v2 Cert Exam (free to attempt, optional)</li>
+        <li>Interviewing.io — mock interviews with pros (₹3000/month)</li>
+      </ul>
+    </div>
+    <div class="footer-block">
+      <h4>Tools You'll Use (Install & Master)</h4>
+      <ul>
+        <li>Kali Linux / Parrot Security OS (VM or dual boot)</li>
+        <li>VirtualBox (free hypervisor for VMs)</li>
+        <li>Burp Suite Community (web app testing, free)</li>
+        <li>Nmap, Metasploit, Wireshark, Ghidra (command-line tools)</li>
+        <li>Git & GitHub (portfolio, code versioning)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="footer-section">
+  <div class="footer-title">Critical Success Factors</div>
+  <div class="footer-content">
+    <div class="footer-block">
+      <h4>✓ Do These</h4>
+      <ul>
+        <li>Code & document everything. No theory-only days.</li>
+        <li>Teach others what you learn (write 1 short blog post per week minimum)</li>
+        <li>Join 1 CTF team or find a study buddy for accountability</li>
+        <li>Say yes to every internship interview (even companies you're unsure about)</li>
+        <li>Track daily progress in a spreadsheet (hours, topics, mood)</li>
+      </ul>
+    </div>
+    <div class="footer-block">
+      <h4>✗ Avoid These</h4>
+      <ul>
+        <li>Analysis paralysis (picking the "perfect" course forever)</li>
+        <li>Only watching videos (hands-on labs 70% of time minimum)</li>
+        <li>Ignoring job applications until Month 5 (start Month 4)</li>
+        <li>Comparing yourself to others (your journey is unique)</li>
+        <li>Skipping weekends (consistency matters most)</li>
+      </ul>
+    </div>
+    <div class="footer-block">
+      <h4>⚡ Leverage Your Advantage</h4>
+      <ul>
+        <li>You code. Most security candidates don't. Build tools.</li>
+        <li>Your Node.js + Express knowledge = AppSec superpower</li>
+        <li>Portfolio projects >> resume bullet points (show, don't tell)</li>
+        <li>Bug bounty reports = real-world proof (even if low severity)</li>
+        <li>CTF writeups = proof you can solve hard problems independently</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="copyright">
+  <strong>6-MONTH DAILY ROADMAP</strong> · JD · ECE Kings Engineering College<br>
+  June 23, 2026 → December 31, 2026 · 192 Days · 27 Weeks<br>
+  <span style="color: rgba(0,212,255,0.5); font-size: 9px; margin-top: 12px; display: block;">You've got this. Stay consistent. Document everything. Build in public.</span>
+</div>
+
+</div>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
